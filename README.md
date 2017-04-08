@@ -21,3 +21,10 @@ optional arguments:
 ```
 python clean_arabic_text.py -i infile.txt -o outfile.txt
 ```
+
+## How to contribute 
+1. Fork the project.
+2. Modify the code, test it, make sure that it works fine. 
+3. Make a pull request.
+
+Please consult [github help](https://help.github.com/) to get help.
