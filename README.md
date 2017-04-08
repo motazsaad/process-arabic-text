@@ -1,5 +1,7 @@
 # Pre-process Arabic Text
-Pre-process arabic text (remove diacritics, punctuations) 
+Pre-process arabic text (remove diacritics, punctuations, and repeating characters) 
 
 ## Usage:
-```python clean_arabic_text.py <input file> <output file>```
+```
+clean_arabic_text.py [-h] -i INFILE -o OUTFILE
+```

@@ -2,6 +2,7 @@
 import re
 import string
 import sys
+import argparse
 
 arabic_punctuations = '''`÷×؛<>_()*&^%][ـ،/:"؟.,'{}~¦+|!”…“–ـ'''
 english_punctuations = string.punctuation
@@ -45,18 +46,20 @@ def remove_repeating_char(text):
     return re.sub(r'(.)\1+', r'\1', text)
 
 
-def usage():
-    return "usage: python ", sys.argv[0] + "  <input file>  <output file>"
+parser = argparse.ArgumentParser(description='Pre-process arabic text (remove '
+                                             'diacritics, punctuations, and repeating '
+                                             'characters).')
+
+parser.add_argument('-i', '--infile', type=argparse.FileType(mode='r', encoding='utf-8'),
+                    help='input file.', required=True)
+parser.add_argument('-o', '--outfile', type=argparse.FileType(mode='w', encoding='utf-8'),
+                    help='out file.', required=True)
+
 
 if __name__ == '__main__':
-    if len(sys.argv) == 3:
-        input_file = sys.argv[1]
-        output_file = sys.argv[2]
-        with open(input_file, encoding="utf-8") as file_reader, open(output_file, encoding="utf-8", mode='w') as file_writer:
-            text = file_reader.read()
-            text = remove_punctuations(text)
-            text = remove_diacritics(text)
-            text = remove_repeating_char(text)
-            file_writer.write(text)
-    else:
-        print(usage())
+    args = parser.parse_args()
+    text = args.infile.read()
+    text = remove_punctuations(text)
+    text = remove_diacritics(text)
+    text = remove_repeating_char(text)
+    args.outfile.write(text)
